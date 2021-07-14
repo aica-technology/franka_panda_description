@@ -1,24 +1,18 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
   <name>franka_panda_description</name>
   <version>0.0.1</version>
   <description>
     Description of Panda Robot from Franka Emika.
-    This package contains the URDF and meshes describing Panda for Gazebo simulator.
+    This package contains the URDF and meshes describing the Panda Arm.
   </description>
 
-  <maintainer email="sxs1412@bham.ac.uk">
-    Saif Sidhik
-  </maintainer>
+  <maintainer email="dominic.reber@epfl.ch">Dominic Reber</maintainer>
   <license>TODO</license>
 
-  <author>Saif Sidhik</author>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <run_depend>robot_state_publisher</run_depend>
-  <run_depend>joint_state_publisher</run_depend>
-  <run_depend>tf2_ros</run_depend>
-  <run_depend>rviz</run_depend>
-
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

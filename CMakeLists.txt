@@ -1,12 +1,19 @@
-cmake_minimum_required(VERSION 2.8.3)
-
+cmake_minimum_required(VERSION 3.5)
 project(franka_panda_description)
 
-find_package(catkin REQUIRED)
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+   set(CMAKE_CXX_STANDARD 14)
+endif()
 
-catkin_package()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+   add_compile_options(-Wall -Wextra)
+endif()
+
+find_package(ament_cmake REQUIRED)
 
 foreach(dir meshes robots)
-   install(DIRECTORY ${dir}/
-      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
+   install(DIRECTORY ${dir}/ DESTINATION share/${PROJECT_NAME})
 endforeach(dir)
+
+ament_package()
