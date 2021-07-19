@@ -13,7 +13,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 foreach(dir meshes robots)
-   install(DIRECTORY ${dir}/ DESTINATION share/${PROJECT_NAME})
+   install(DIRECTORY ${dir}/ DESTINATION share/${PROJECT_NAME}/${dir})
 endforeach(dir)
 
 ament_package()
