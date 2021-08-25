@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="panda_arm" params="name prefix arm_id:='panda">
+  <xacro:macro name="panda_arm_interface" params="name arm_id:='panda'">
 
     <hardware>
       <plugin>robot_interface/franka/PandaInterface</plugin>
@@ -133,7 +133,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      
+
     </ros2_control>
   </xacro:macro>
 </robot>
