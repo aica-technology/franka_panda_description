@@ -2,11 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="panda_arm_interface" params="name prefix:='panda'">
 
-    <hardware>
-      <plugin>robot_interface/franka/PandaInterface</plugin>
-    </hardware>
-
     <ros2_control name="${name}" type="system">
+      <hardware>
+        <plugin>robot_interface/franka/PandaInterface</plugin>
+      </hardware>
+
       <joint name="${prefix}_joint1">
         <command_interface name="position">
           <param name="min">-2.8973</param>
