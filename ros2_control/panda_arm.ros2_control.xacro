@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="panda_arm_interface" params="name prefix:='panda'">
+  <xacro:macro name="panda_arm_interface" params="name prefix:='panda_'">
 
     <ros2_control name="${name}" type="system">
       <hardware>
         <plugin>robot_interface/franka/PandaInterface</plugin>
       </hardware>
 
-      <joint name="${prefix}_joint1">
+      <joint name="${prefix}joint1">
         <command_interface name="position">
           <param name="min">-2.8973</param>
           <param name="max">2.8973</param>
@@ -25,7 +25,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint2">
+      <joint name="${prefix}joint2">
         <command_interface name="position">
           <param name="min">-1.7628</param>
           <param name="max">1.7628</param>
@@ -43,7 +43,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint3">
+      <joint name="${prefix}joint3">
         <command_interface name="position">
           <param name="min">-2.8973</param>
           <param name="max">2.8973</param>
@@ -61,7 +61,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint4">
+      <joint name="${prefix}joint4">
         <command_interface name="position">
           <param name="min">-3.0718</param>
           <param name="max">-0.0698</param>
@@ -79,7 +79,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint5">
+      <joint name="${prefix}joint5">
         <command_interface name="position">
           <param name="min">-2.8973</param>
           <param name="max">2.8973</param>
@@ -97,7 +97,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint6">
+      <joint name="${prefix}joint6">
         <command_interface name="position">
           <param name="min">-0.0175</param>
           <param name="max">3.7525</param>
@@ -115,7 +115,7 @@
         <state_interface name="acceleration"/>
         <state_interface name="effort"/>
       </joint>
-      <joint name="${prefix}_joint7">
+      <joint name="${prefix}joint7">
         <command_interface name="position">
           <param name="min">-2.8973</param>
           <param name="max">2.8973</param>
