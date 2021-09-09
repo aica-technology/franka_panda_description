@@ -1,7 +1,8 @@
 <?xml version='1.0' ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
     <xacro:arg name="load_gazebo" default="false"/>
-    <xacro:arg name="prefix" default="panda"/>
+    <xacro:arg name="prefix" default="panda_"/>
+    <xacro:arg name="use_sim" default="false"/>
     <xacro:arg name="connected_to" default=""/>
     <xacro:arg name="xyz" default="0 0 0"/>
     <xacro:arg name="rpy" default="0 0 0"/>
@@ -18,5 +19,5 @@
         <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
     </xacro:unless>
 
-    <xacro:panda_arm_interface name="PandaInterface" prefix="$(arg prefix)"/>
+    <xacro:panda_arm_interface name="PandaInterface" prefix="$(arg prefix)" use_sim="$(arg use_sim)"/>
 </robot>

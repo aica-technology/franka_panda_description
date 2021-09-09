@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="panda_arm_interface" params="name prefix:='panda_'">
+  <xacro:macro name="panda_arm_interface" params="name prefix use_sim:=^|false">
 
     <ros2_control name="${name}" type="system">
-      <hardware>
-        <plugin>robot_interface/franka/PandaInterface</plugin>
-      </hardware>
+      <xacro:if value="$(arg use_sim)">
+        <hardware>
+          <plugin>robot_interface/simulators/PybulletInterface</plugin>
+        </hardware>
+      </xacro:if>
+      <xacro:unless value="$(arg use_sim)">
+        <hardware>
+          <plugin>robot_interface/franka/PandaInterface</plugin>
+        </hardware>
+      </xacro:unless>
 
       <joint name="${prefix}joint1">
         <command_interface name="position">
