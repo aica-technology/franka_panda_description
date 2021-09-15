@@ -1,6 +1,9 @@
 <?xml version='1.0' ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
     <xacro:arg name="prefix" default="panda_"/>
+    <xacro:arg name="robot_ip" default="127.0.0.1"/>
+    <xacro:arg name="robot_state_port" default="1601"/>
+    <xacro:arg name="robot_command_port" default="1602"/>
     <xacro:arg name="load_gazebo" default="false"/>
     <xacro:arg name="load_ros2_control" default="false"/>
     <xacro:arg name="use_sim" default="false"/>
@@ -21,6 +24,13 @@
     </xacro:unless>
 
     <xacro:if value="$(arg load_ros2_control)">
-        <xacro:panda_arm_interface name="PandaInterface" prefix="$(arg prefix)" use_sim="$(arg use_sim)"/>
+        <xacro:panda_arm_interface
+                name="PandaInterface"
+                prefix="$(arg prefix)"
+                robot_ip="$(arg robot_ip)"
+                robot_state_port="$(arg robot_state_port)"
+                robot_command_port="$(arg robot_command_port)"
+                use_sim="$(arg use_sim)"
+        />
     </xacro:if>
 </robot>
