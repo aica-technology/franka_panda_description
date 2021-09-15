@@ -16,7 +16,7 @@
           <plugin>robot_interface/franka/PandaInterface</plugin>
           <param name="robot_ip">${robot_ip}</param>
           <param name="robot_state_port">${robot_state_port}</param>
-          <param name="robot_command_port">"${robot_command_port}</param>
+          <param name="robot_command_port">${robot_command_port}</param>
         </hardware>
       </xacro:unless>
 
