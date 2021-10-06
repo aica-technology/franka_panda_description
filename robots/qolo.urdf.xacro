@@ -1,0 +1,21 @@
+<?xml version='1.0' ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="qolo">
+    <link name="world" />
+    <joint name="link_to_world" type="fixed">
+        <parent link="world"/>
+        <child link="link0"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <link name="link0">
+        <visual>
+            <geometry>
+                <mesh filename="package://franka_panda_description/meshes/visual/link0.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://franka_panda_description/meshes/collision/link0.stl"/>
+            </geometry>
+        </collision>
+    </link>
+</robot>

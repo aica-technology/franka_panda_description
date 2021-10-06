@@ -12,7 +12,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
-foreach(dir meshes robots ros2_control urdf)
+foreach(dir config launch meshes robots ros2_control urdf)
    install(DIRECTORY ${dir}/ DESTINATION share/${PROJECT_NAME}/${dir})
 endforeach(dir)
 
