@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
-  <xacro:arg name="robot_name" default="panda"/>
-  <xacro:arg name="connected_to" default=""/> <!-- If using a different frame with ${connected_to} param, make sure 'world' frame exists in the TF tree -->
 
   <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
   <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
 
   <xacro:include filename="$(find franka_panda_description)/robots/l515_adapter.xacro"/>
+  <xacro:include filename="$(find realsense2_description)/urdf/_l515.urdf.xacro" />
 
   <xacro:panda_arm/>
 
   <xacro:l515_adapter prefix="holder_" connected_to="panda_link8" rpy="0 0 ${-pi/4}"/>
+
+  <xacro:sensor_l515 parent="holder_cam" use_nominal_extrinsics="true" add_plug="true" use_mesh="false">
+    <origin xyz="0 -0.03015 0.014" rpy="${-pi/2} ${-pi/2} 0"/>
+  </xacro:sensor_l515>
 
   <xacro:hand ns="panda" connected_to="holder_toolside"/>
 
