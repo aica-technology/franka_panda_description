@@ -4,7 +4,7 @@ RUN sudo apt-get update && sudo apt-get install -y ros-foxy-joint-state-publishe
 
 USER ${USER}
 WORKDIR ${HOME}/ros2_ws
-RUN git clone -b foxy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
+RUN git clone -b ros2 --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
   mv realsense-ros/realsense2_description ./src/realsense2_description && rm -rf realsense-ros
 COPY ./ ./src/franka_panda_description
 
