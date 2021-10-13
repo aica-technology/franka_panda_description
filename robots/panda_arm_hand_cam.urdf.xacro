@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
+  <xacro:arg name="prefix" default="panda_"/>
+  <xacro:arg name="robot_ip" default="127.0.0.1"/>
+  <xacro:arg name="robot_state_port" default="1601"/>
+  <xacro:arg name="robot_command_port" default="1602"/>
+  <xacro:arg name="load_gazebo" default="false"/>
+  <xacro:arg name="load_ros2_control" default="false"/>
+  <xacro:arg name="use_sim" default="false"/>
+  <xacro:arg name="connected_to" default=""/>
+  <xacro:arg name="xyz" default="0 0 0"/>
+  <xacro:arg name="rpy" default="0 0 0"/>
 
   <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
   <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
@@ -7,9 +17,20 @@
   <xacro:include filename="$(find franka_panda_description)/robots/l515_adapter.xacro"/>
   <xacro:include filename="$(find realsense2_description)/urdf/_l515.urdf.xacro" />
 
-  <xacro:panda_arm/>
+  <xacro:panda_arm
+    prefix="$(arg prefix)"
+    robot_ip="$(arg robot_ip)"
+    robot_state_port="$(arg robot_state_port)"
+    robot_command_port="$(arg robot_command_port)"
+    load_gazebo="$(arg load_gazebo)"
+    load_ros2_control="$(arg load_ros2_control)"
+    use_sim="$(arg use_sim)"
+    connected_to="$(arg connected_to)"
+    xyz="$(arg xyz)"
+    rpy="$(arg rpy)"
+  />
 
-  <xacro:l515_adapter prefix="holder_" connected_to="panda_link8" rpy="0 0 ${-pi/4}"/>
+  <xacro:l515_adapter prefix="holder_" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"/>
 
   <xacro:sensor_l515 parent="holder_cam" use_nominal_extrinsics="true" add_plug="true" use_mesh="false">
     <origin xyz="0 -0.03015 0.014" rpy="${-pi/2} ${-pi/2} 0"/>
