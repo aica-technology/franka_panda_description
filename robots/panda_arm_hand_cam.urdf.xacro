@@ -11,6 +11,9 @@
   <xacro:arg name="xyz" default="0 0 0"/>
   <xacro:arg name="rpy" default="0 0 0"/>
 
+  <!-- Import ros2_control description -->
+  <xacro:include filename="$(find franka_panda_description)/ros2_control/panda_arm.ros2_control.xacro"/>
+
   <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
   <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
 
@@ -19,23 +22,28 @@
 
   <xacro:panda_arm
     prefix="$(arg prefix)"
-    robot_ip="$(arg robot_ip)"
-    robot_state_port="$(arg robot_state_port)"
-    robot_command_port="$(arg robot_command_port)"
-    load_gazebo="$(arg load_gazebo)"
-    load_ros2_control="$(arg load_ros2_control)"
-    use_sim="$(arg use_sim)"
     connected_to="$(arg connected_to)"
     xyz="$(arg xyz)"
     rpy="$(arg rpy)"
   />
 
-  <xacro:l515_adapter prefix="holder_" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"/>
+  <xacro:l515_adapter prefix="$(arg prefix)holder_" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"/>
 
-  <xacro:sensor_l515 parent="holder_cam" use_nominal_extrinsics="true" add_plug="true" use_mesh="false">
+  <xacro:sensor_l515 parent="$(arg prefix)holder_cam" use_nominal_extrinsics="true" add_plug="true" use_mesh="false">
     <origin xyz="0 -0.03015 0.014" rpy="${-pi/2} ${-pi/2} 0"/>
   </xacro:sensor_l515>
 
-  <xacro:hand ns="panda" connected_to="holder_toolside"/>
+  <xacro:hand ns="panda" connected_to="$(arg prefix)holder_toolside"/>
+
+  <xacro:if value="$(arg load_ros2_control)">
+        <xacro:panda_arm_interface
+                name="PandaInterface"
+                prefix="$(arg prefix)"
+                robot_ip="$(arg robot_ip)"
+                robot_state_port="$(arg robot_state_port)"
+                robot_command_port="$(arg robot_command_port)"
+                use_sim="$(arg use_sim)"
+        />
+    </xacro:if>
 
 </robot>
