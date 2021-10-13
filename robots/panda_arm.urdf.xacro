@@ -4,7 +4,6 @@
     <xacro:arg name="robot_ip" default="127.0.0.1"/>
     <xacro:arg name="robot_state_port" default="1601"/>
     <xacro:arg name="robot_command_port" default="1602"/>
-    <xacro:arg name="load_gazebo" default="false"/>
     <xacro:arg name="load_ros2_control" default="false"/>
     <xacro:arg name="use_sim" default="false"/>
     <xacro:arg name="connected_to" default=""/>
@@ -15,13 +14,7 @@
     <!-- Import ros2_control description -->
     <xacro:include filename="$(find franka_panda_description)/ros2_control/panda_arm.ros2_control.xacro"/>
     
-    <xacro:if value="$(arg load_gazebo)">  
-        <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)" in_gazebo="true"/>
-    </xacro:if>
-
-    <xacro:unless value="$(arg load_gazebo)">  
-        <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
-    </xacro:unless>
+    <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
 
     <xacro:if value="$(arg load_ros2_control)">
         <xacro:panda_arm_interface
