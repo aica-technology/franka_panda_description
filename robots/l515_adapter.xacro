@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<robot name="l515_adapter" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="l515_adapter"
+               params="prefix='l515_adapter_' connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
+
+    <xacro:if value="${connected_to == ''}">
+      <link name="world"/>
+      <xacro:property name="base_frame_name" value="world"/>
+    </xacro:if>
+    <xacro:unless value="${connected_to == ''}">
+      <xacro:property name="base_frame_name" value="${connected_to}"/>
+    </xacro:unless>
+
+    <joint name="${prefix}to_${base_frame_name}" type="fixed">
+      <parent link="${base_frame_name}"/>
+      <child link="${prefix}robotside"/>
+      <origin rpy="${rpy}" xyz="${xyz}"/>
+    </joint>
+
+    <link name="${prefix}robotside">
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://franka_panda_description/meshes/collision/l515_adapter.stl" scale="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="black">
+          <color rgba="0.2 0.2 0.2 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://franka_panda_description/meshes/collision/l515_adapter.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}robotside_to_cam" type="fixed">
+      <parent link="${prefix}robotside"/>
+      <child link="${prefix}cam"/>
+      <origin rpy="0 0 0" xyz="0.085 0 0.007"/>
+    </joint>
+
+    <link name="${prefix}cam"/>
+
+    <joint name="${prefix}robotside_to_toolside" type="fixed">
+      <parent link="${prefix}robotside"/>
+      <child link="${prefix}toolside"/>
+      <origin rpy="0 0 0" xyz="0 0 0.007"/>
+    </joint>
+
+    <link name="${prefix}toolside"/>
+
+  </xacro:macro>
+
+</robot>
