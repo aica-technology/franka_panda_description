@@ -28,7 +28,7 @@
         />
     </xacro:if>
 
-    <xacro:if value="$(arg load_gripper)">
+    <xacro:if value="$(arg load_hand)">
         <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
         <xacro:hand prefix="$(arg prefix)" rpy="0 0 ${-pi/4}" connected_to="$(arg prefix)link8"/>
     </xacro:if>
