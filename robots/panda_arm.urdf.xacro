@@ -5,6 +5,7 @@
     <xacro:arg name="robot_state_port" default="1601"/>
     <xacro:arg name="robot_command_port" default="1602"/>
     <xacro:arg name="load_ros2_control" default="false"/>
+    <xacro:arg name="load_hand" default="false"/>
     <xacro:arg name="use_sim" default="false"/>
     <xacro:arg name="connected_to" default=""/>
     <xacro:arg name="xyz" default="0 0 0"/>
@@ -25,5 +26,10 @@
                 robot_command_port="$(arg robot_command_port)"
                 use_sim="$(arg use_sim)"
         />
+    </xacro:if>
+
+    <xacro:if value="$(arg load_hand)">
+        <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
+        <xacro:hand prefix="$(arg prefix)" rpy="0 0 ${-pi/4}" connected_to="$(arg prefix)link8"/>
     </xacro:if>
 </robot>
