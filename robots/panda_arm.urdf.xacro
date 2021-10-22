@@ -14,12 +14,17 @@
   <xacro:arg name="rpy" default="0 0 0"/>
   <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
 
-  <!-- Import ros2_control description -->
-  <xacro:include filename="$(find franka_panda_description)/ros2_control/panda_arm.ros2_control.xacro"/>
 
   <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
+  <xacro:if value="$(arg load_hand)">
+    <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
+    <xacro:hand prefix="$(arg prefix)" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"
+                fix_finger_joints="$(arg fix_finger_joints)" insert_grasp_frame="$(arg insert_grasp_frame)"/>
+  </xacro:if>
 
   <xacro:if value="$(arg load_ros2_control)">
+    <!-- Import ros2_control description -->
+    <xacro:include filename="$(find franka_panda_description)/ros2_control/panda_arm.ros2_control.xacro"/>
     <xacro:panda_arm_interface
         name="PandaInterface"
         prefix="$(arg prefix)"
@@ -28,11 +33,16 @@
         robot_command_port="$(arg robot_command_port)"
         use_sim="$(arg use_sim)"
     />
+    <xacro:if value="$(arg load_hand)">
+      <!-- Import ros2_control description -->
+      <xacro:include filename="$(find franka_panda_description)/ros2_control/hand.ros2_control.xacro"/>
+      <xacro:hand_interface
+          name="PandaHandInterface"
+          prefix="$(arg prefix)"
+          robot_ip="$(arg robot_ip)"
+          use_sim="$(arg use_sim)"
+      />
+    </xacro:if>
   </xacro:if>
 
-  <xacro:if value="$(arg load_hand)">
-    <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
-    <xacro:hand prefix="$(arg prefix)" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"
-                fix_finger_joints="$(arg fix_finger_joints)" insert_grasp_frame="$(arg insert_grasp_frame)"/>
-  </xacro:if>
 </robot>
