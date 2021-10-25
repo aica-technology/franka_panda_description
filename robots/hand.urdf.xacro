@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hand">
+  <xacro:arg name="prefix" default="panda_"/>
+  <xacro:arg name="robot_ip" default="172.16.0.2"/>
+  <xacro:arg name="load_ros2_control" default="false"/>
+  <xacro:arg name="fix_finger_joints" default="false"/>
+  <xacro:arg name="insert_grasp_frame" default="false"/>
+  <xacro:arg name="connected_to" default=""/>
+  <xacro:arg name="xyz" default="0 0 0"/>
+  <xacro:arg name="rpy" default="0 0 0"/>
+
   <xacro:include filename="hand.xacro"/>
-  <xacro:hand/>
+  <xacro:hand prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"
+              fix_finger_joints="$(arg fix_finger_joints)" insert_grasp_frame="$(arg insert_grasp_frame)"/>
+
+  <xacro:unless value="$(arg fix_finger_joints)">
+    <xacro:if value="$(arg load_ros2_control)">
+      <xacro:include filename="$(find franka_panda_description)/ros2_control/hand.ros2_control.xacro"/>
+      <xacro:hand_interface
+          name="PandaHandInterface"
+          prefix="$(arg prefix)"
+          robot_ip="$(arg robot_ip)"
+          use_sim="$(arg use_sim)"
+      />
+    </xacro:if>
+  </xacro:unless>
+
 </robot>
