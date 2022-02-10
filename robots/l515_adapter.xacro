@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="l515_adapter" xmlns:xacro="http://wiki.ros.org/xacro">
-
-  <xacro:macro name="l515_adapter"
-               params="prefix='l515_adapter_' connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
+  <xacro:macro name="l515_adapter" params="prefix='l515_adapter_' connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
 
     <xacro:if value="${connected_to == ''}">
       <link name="world"/>
@@ -36,7 +34,8 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="package://franka_panda_description/meshes/collision/l515_adapter.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://franka_panda_description/meshes/collision/l515_adapter.stl"
+                scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
@@ -58,5 +57,4 @@
     <link name="${prefix}toolside"/>
 
   </xacro:macro>
-
 </robot>

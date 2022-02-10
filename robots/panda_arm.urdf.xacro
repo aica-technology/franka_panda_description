@@ -1,35 +1,34 @@
-<?xml version='1.0' ?>
+<?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
-    <xacro:arg name="prefix" default="panda_"/>
-    <xacro:arg name="robot_ip" default="127.0.0.1"/>
-    <xacro:arg name="robot_state_port" default="1601"/>
-    <xacro:arg name="robot_command_port" default="1602"/>
-    <xacro:arg name="load_ros2_control" default="false"/>
-    <xacro:arg name="load_hand" default="false"/>
-    <xacro:arg name="use_sim" default="false"/>
-    <xacro:arg name="connected_to" default=""/>
-    <xacro:arg name="xyz" default="0 0 0"/>
-    <xacro:arg name="rpy" default="0 0 0"/>
-    <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
+  <xacro:arg name="prefix" default="panda_"/>
+  <xacro:arg name="robot_ip" default="127.0.0.1"/>
+  <xacro:arg name="robot_state_port" default="1601"/>
+  <xacro:arg name="robot_command_port" default="1602"/>
+  <xacro:arg name="load_ros2_control" default="false"/>
+  <xacro:arg name="load_hand" default="false"/>
+  <xacro:arg name="use_sim" default="false"/>
+  <xacro:arg name="connected_to" default=""/>
+  <xacro:arg name="xyz" default="0 0 0"/>
+  <xacro:arg name="rpy" default="0 0 0"/>
 
+  <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
+  <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
+
+  <xacro:if value="$(arg load_ros2_control)">
     <!-- Import ros2_control description -->
     <xacro:include filename="$(find franka_panda_description)/ros2_control/panda_arm.ros2_control.xacro"/>
-    
-    <xacro:panda_arm prefix="$(arg prefix)" connected_to="$(arg connected_to)" xyz="$(arg xyz)" rpy="$(arg rpy)"/>
+    <xacro:panda_arm_interface
+        name="PandaInterface"
+        prefix="$(arg prefix)"
+        robot_ip="$(arg robot_ip)"
+        robot_state_port="$(arg robot_state_port)"
+        robot_command_port="$(arg robot_command_port)"
+        use_sim="$(arg use_sim)"
+    />
+  </xacro:if>
 
-    <xacro:if value="$(arg load_ros2_control)">
-        <xacro:panda_arm_interface
-                name="PandaInterface"
-                prefix="$(arg prefix)"
-                robot_ip="$(arg robot_ip)"
-                robot_state_port="$(arg robot_state_port)"
-                robot_command_port="$(arg robot_command_port)"
-                use_sim="$(arg use_sim)"
-        />
-    </xacro:if>
-
-    <xacro:if value="$(arg load_hand)">
-        <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
-        <xacro:hand prefix="$(arg prefix)" rpy="0 0 ${-pi/4}" connected_to="$(arg prefix)link8"/>
-    </xacro:if>
+  <xacro:if value="$(arg load_hand)">
+    <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
+    <xacro:hand prefix="$(arg prefix)" connected_to="$(arg prefix)link8" rpy="0 0 ${-pi/4}"/>
+  </xacro:if>
 </robot>

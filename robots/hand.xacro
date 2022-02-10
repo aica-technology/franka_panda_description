@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hand">
-  <xacro:macro name="hand" params="connected_to:='' prefix:='panda_' rpy:='0 0 0' xyz:='0 0 0' ">
+  <xacro:macro name="hand" params="prefix:='panda_' connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
     <xacro:unless value="${connected_to == ''}">
       <joint name="${prefix}hand_joint" type="fixed">
         <parent link="${connected_to}"/>
